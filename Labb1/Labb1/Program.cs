@@ -1,16 +1,15 @@
 ﻿
-/*
- LABB 1
- Hitta tal i sträng med tecken
- 
-- spara siffermatchningar i lista
-- addera ihop alla tal och skriv ut totalen
 
- */
+
+using System.Numerics;
 
 static void FindNumbersInString(string userInput)
 {
+  
+    BigInteger numberMatchSum = 0;
+
     List<string> numberMatches = new List<string>();
+
 
     for (int number = 0; number < userInput.Length; number++)
     {
@@ -32,7 +31,7 @@ static void FindNumbersInString(string userInput)
 
         if (isLetterInMatch) continue;
 
-        for (int i= number; i <= stopIndex; i++)
+        for (int i = number; i <= stopIndex; i++)
         {
 
             numberMatch += userInput[i];
@@ -60,14 +59,19 @@ static void FindNumbersInString(string userInput)
 
     Console.ResetColor();
 
-    Console.WriteLine("\nSaved number Matches:\n");
+    Console.WriteLine("\nSum of number Matches:\n");
     foreach (var numberMatch in numberMatches)
     {
-        Console.WriteLine(numberMatch);
+        if (BigInteger.TryParse(numberMatch, out BigInteger parsedNumber))
+        {
+            numberMatchSum += parsedNumber;
+        }
+        
     }
+        Console.WriteLine(numberMatchSum);
 
 }
 
-Console.WriteLine("Skriv in en sträng bestående av mestadels siffror och något/några bokstäver:");
+Console.Write("Skriv in en sträng bestående av mestadels siffror och något/några bokstäver:");
 
 FindNumbersInString(Console.ReadLine());
