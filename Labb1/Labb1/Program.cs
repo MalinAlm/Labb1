@@ -56,6 +56,7 @@ static void FindNumbersInString(string userInput)
     Console.ResetColor();
 
     Console.WriteLine("\nSumman av alla matchade tal:\n");
+
     foreach (var numberMatch in matchedNumbers)
     {
         if (BigInteger.TryParse(numberMatch, out BigInteger parsedNumber))
