@@ -1,49 +1,44 @@
 ﻿
-
-
 using System.Numerics;
 
 static void FindNumbersInString(string userInput)
 {
   
-    BigInteger numberMatchSum = 0;
+    BigInteger totalMatchedNumbersSum = 0;
 
-    List<string> numberMatches = new List<string>();
+    List<string> matchedNumbers = new List<string>();
 
-
-    for (int number = 0; number < userInput.Length; number++)
+    for (int startIndex = 0; startIndex < userInput.Length; startIndex++)
     {
 
-        int stopIndex = userInput.IndexOf(userInput[number], number + 1);
-        bool isLetterInMatch = false;
+        int endIndex = userInput.IndexOf(userInput[startIndex], startIndex + 1);
+        bool containsLetter = false;
         string numberMatch = "";
 
-        if (stopIndex == -1) continue;
+        if (endIndex == -1) continue;
 
-        for (int i = number; i <= stopIndex; i++)
+        for (int letterCheckIndex = startIndex; letterCheckIndex <= endIndex; letterCheckIndex++)
         {
-            if (char.IsLetter(userInput[i]))
+            if (char.IsLetter(userInput[letterCheckIndex]))
             {
-                isLetterInMatch = true;
+                containsLetter = true;
                 break;
             }
         }
 
-        if (isLetterInMatch) continue;
+        if (containsLetter) continue;
 
-        for (int i = number; i <= stopIndex; i++)
+        for (int matchIndex = startIndex; matchIndex <= endIndex; matchIndex++)
         {
-
-            numberMatch += userInput[i];
-
+            numberMatch += userInput[matchIndex];
         }
 
-        numberMatches.Add(numberMatch);
+        matchedNumbers.Add(numberMatch);
 
-        for (int i = 0; i < userInput.Length; i++)
+        for (int digitIndex = 0; digitIndex < userInput.Length; digitIndex++)
         {
 
-            if (i >= number && i <= stopIndex)
+            if (digitIndex >= startIndex && digitIndex <= endIndex)
             {
                 Console.ForegroundColor = ConsoleColor.Magenta;
             }
@@ -51,7 +46,8 @@ static void FindNumbersInString(string userInput)
             {
                 Console.ForegroundColor = ConsoleColor.White;
             }
-            Console.Write(userInput[i]);
+
+            Console.Write(userInput[digitIndex]);
         }
 
         Console.WriteLine();
@@ -59,19 +55,18 @@ static void FindNumbersInString(string userInput)
 
     Console.ResetColor();
 
-    Console.WriteLine("\nSum of number Matches:\n");
-    foreach (var numberMatch in numberMatches)
+    Console.WriteLine("\nSumman av alla matchade tal:\n");
+    foreach (var numberMatch in matchedNumbers)
     {
         if (BigInteger.TryParse(numberMatch, out BigInteger parsedNumber))
         {
-            numberMatchSum += parsedNumber;
+            totalMatchedNumbersSum += parsedNumber;
         }
-        
     }
-        Console.WriteLine(numberMatchSum);
 
+    Console.WriteLine(totalMatchedNumbersSum);
 }
 
-Console.Write("Skriv in en sträng bestående av mestadels siffror och något/några bokstäver:");
+Console.Write("Skriv in en sträng bestående av mestadels siffror och någon/några bokstäver: ");
 
 FindNumbersInString(Console.ReadLine());
