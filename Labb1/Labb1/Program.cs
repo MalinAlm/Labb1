@@ -8,45 +8,66 @@
 
  */
 
-
-Console.WriteLine("Skriv in en sträng bestående av mestadels siffror och något/några bokstäver:");
-string userInput = Console.ReadLine();
-
-for (int number = 0; number < userInput.Length; number++)
+static void FindNumbersInString(string userInput)
 {
+    List<string> numberMatches = new List<string>();
 
-    int stopIndex = userInput.IndexOf(userInput[number], number + 1);
-    bool isLetterInMatch = false;
-
-    if (stopIndex == -1) continue;
-
-    for (int i = number; i <= stopIndex; i++)
-    {
-        if (char.IsLetter(userInput[i]))
-        {
-            isLetterInMatch = true;
-            break;
-        }
-    }
-
-    if (isLetterInMatch) continue;
-
-    for (int i = 0; i < userInput.Length; i++)
+    for (int number = 0; number < userInput.Length; number++)
     {
 
-        if (i >= number && i <= stopIndex)
+        int stopIndex = userInput.IndexOf(userInput[number], number + 1);
+        bool isLetterInMatch = false;
+        string numberMatch = "";
+
+        if (stopIndex == -1) continue;
+
+        for (int i = number; i <= stopIndex; i++)
         {
-            Console.ForegroundColor = ConsoleColor.Magenta;
+            if (char.IsLetter(userInput[i]))
+            {
+                isLetterInMatch = true;
+                break;
+            }
         }
-        else
+
+        if (isLetterInMatch) continue;
+
+        for (int i= number; i <= stopIndex; i++)
         {
-            Console.ForegroundColor = ConsoleColor.White;
+
+            numberMatch += userInput[i];
+
         }
-        Console.Write(userInput[i]);
+
+        numberMatches.Add(numberMatch);
+
+        for (int i = 0; i < userInput.Length; i++)
+        {
+
+            if (i >= number && i <= stopIndex)
+            {
+                Console.ForegroundColor = ConsoleColor.Magenta;
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+            Console.Write(userInput[i]);
+        }
+
+        Console.WriteLine();
     }
 
-    Console.WriteLine();
+    Console.ResetColor();
+
+    Console.WriteLine("\nSaved number Matches:\n");
+    foreach (var numberMatch in numberMatches)
+    {
+        Console.WriteLine(numberMatch);
+    }
+
 }
 
-Console.ResetColor();
+Console.WriteLine("Skriv in en sträng bestående av mestadels siffror och något/några bokstäver:");
 
+FindNumbersInString(Console.ReadLine());
