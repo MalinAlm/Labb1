@@ -68,7 +68,6 @@ static void FindNumbersInString(string userInput)
 
     Console.WriteLine(totalMatchedNumbersSum);
 }
-
 Console.Write("Skriv in en sträng bestående av mestadels siffror och någon/några bokstäver: ");
 
 FindNumbersInString(Console.ReadLine());
