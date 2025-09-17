@@ -12,22 +12,22 @@ static void FindNumbersInString(string userInput)
     {
 
         int endIndex = userInput.IndexOf(userInput[startIndex], startIndex + 1);
-        bool containsLetter = false;
+        bool containsLetterOrSign = false;
         string numberMatch = "";
 
         if (endIndex == -1) continue;
 
-        for (int letterCheckIndex = startIndex; letterCheckIndex <= endIndex; letterCheckIndex++)
+        for (int isDigitCheckIndex = startIndex; isDigitCheckIndex <= endIndex; isDigitCheckIndex++)
         {
             
-            if (!char.IsDigit(userInput[letterCheckIndex]))
+            if (!char.IsDigit(userInput[isDigitCheckIndex]))
             {
-                containsLetter = true;
+                containsLetterOrSign = true;
                 break;
             }
         }
 
-        if (containsLetter) continue;
+        if (containsLetterOrSign) continue;
 
         for (int matchIndex = startIndex; matchIndex <= endIndex; matchIndex++)
         {
@@ -68,6 +68,7 @@ static void FindNumbersInString(string userInput)
 
     Console.WriteLine(totalMatchedNumbersSum);
 }
+
 Console.Write("Skriv in en sträng bestående av mestadels siffror och någon/några bokstäver: ");
 
 FindNumbersInString(Console.ReadLine());
