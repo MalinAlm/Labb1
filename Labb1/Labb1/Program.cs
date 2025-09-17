@@ -19,7 +19,8 @@ static void FindNumbersInString(string userInput)
 
         for (int letterCheckIndex = startIndex; letterCheckIndex <= endIndex; letterCheckIndex++)
         {
-            if (char.IsLetter(userInput[letterCheckIndex]))
+            
+            if (!char.IsDigit(userInput[letterCheckIndex]))
             {
                 containsLetter = true;
                 break;
